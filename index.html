@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f8f6f0" />
+  <meta name="description" content="每天只能挑一種商品補貨 10 件。面對未知需求，你能撐過 14 天嗎？免費免登入的庫存補貨小遊戲。" />
+  <title>補貨大作戰｜今天補哪個？</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <script defer type="module" src="app.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="補貨大作戰首頁">
+        <span class="brand-mark" aria-hidden="true">📦</span>
+        <span class="brand-title">補貨大作戰<span class="brand-dot">.</span></span>
+      </a>
+      <button class="text-button rules-trigger" id="rulesButton" type="button" aria-haspopup="dialog">❔ 遊戲規則</button>
+    </header>
+
+    <main class="main-wrap">
+      <section class="hero" aria-labelledby="gameHeading">
+        <div class="hero-content">
+          <span class="eyebrow"><span class="blink-dot" aria-hidden="true"></span> 迷你決策遊戲 · 不用登入</span>
+          <h1 id="gameHeading">今天補哪個<span class="question">？</span></h1>
+          <p>一天只准補一種商品 <strong>10 件</strong>。需求每天都不同，<br class="desktop-only" />想少賣一點，就得選對時機。</p>
+          <div class="hero-chips"><span>🎲 每天隨機</span><span>🧠 選擇困難</span><span>🔁 可以重玩</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true"><div class="art-ring ring-one"></div><div class="art-ring ring-two"></div><span class="art-cart">🛒</span><span class="art-box art-box-one">📦</span><span class="art-box art-box-two">🍞</span><span class="art-spark">✦</span></div>
+      </section>
+
+      <section class="game-frame" aria-label="遊戲介面">
+        <div class="frame-topbar">
+          <div class="frame-label"><span class="live-light"></span> 營業進行中 <span class="frame-slash">/</span> 小商店營運室</div>
+          <button id="newGameButton" class="text-button" type="button">↻ 新開一局</button>
+        </div>
+
+        <div class="game-body">
+          <div class="status-row">
+            <div class="day-heading"><div class="small-label">TODAY'S MISSION</div><h2 id="dayTitle">第 1 天 <span>/ 14 天</span></h2><p id="dayHint">選一種商品進貨，再看看今天的客人想買什麼。</p></div>
+            <div class="seed-chip" title="這組隨機編號代表固定需求序列">🎟️ 第 <span id="seedLabel">000000</span> 局</div>
+          </div>
+
+          <div class="progress-track" role="progressbar" id="dayProgress" aria-label="遊戲天數進度" aria-valuemin="0" aria-valuemax="14" aria-valuenow="0"><div class="progress-fill" id="dayProgressFill"></div></div>
+
+          <div class="score-grid">
+            <div class="score-card sold-card"><span class="score-icon">✓</span><div class="score-label">累計售出</div><div class="score-value"><span id="soldCount">0</span><small>件</small></div></div>
+            <div class="score-card lost-card"><span class="score-icon">!</span><div class="score-label">錯失銷售</div><div class="score-value"><span id="lostCount">0</span><small>件</small></div></div>
+            <div class="score-card rate-card"><span class="score-icon">↗</span><div class="score-label">需求滿足率</div><div class="score-value"><span id="rateCount">100.0</span><small>%</small></div></div>
+          </div>
+
+          <div id="chooseScreen">
+            <div class="section-heading"><div><div class="section-kicker">STOCK SHELF</div><h3>貨架還剩多少？</h3></div><span class="hint-pill">👇 點商品，補貨 +10</span></div>
+            <div id="productGrid" class="product-grid" aria-label="選擇今日補貨商品"></div>
+            <div class="tip-bar"><span class="tip-icon">💡</span><div>補貨會在今天開店前到貨；每種商品的每日需求範圍已列在卡片上，但今天會賣多少，還沒有人知道。</div></div>
+          </div>
+
+          <div id="reviewScreen" class="hidden" aria-live="polite"></div>
+          <div id="finishedScreen" class="hidden" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="below-game">
+        <div class="setup-panel"><div class="below-heading"><span>⚙️</span><h3>下一局想怎麼玩？</h3></div><div class="setup-row"><label for="productCount">商品種類 <small>3～8 種</small></label><select id="productCount"><option value="3">3 種 · 輕鬆</option><option value="4">4 種</option><option value="5" selected>5 種 · 標準</option><option value="6">6 種</option><option value="7">7 種</option><option value="8">8 種 · 硬核</option></select></div><div class="setup-row"><label for="dayCount">挑戰天數</label><select id="dayCount"><option value="7">7 天 · 快速</option><option value="14" selected>14 天 · 標準</option><option value="21">21 天</option><option value="30">30 天 · 馬拉松</option></select></div><button class="primary-button full-button" type="button" id="applySettings">用這個設定開始新局 <span aria-hidden="true">→</span></button></div>
+        <div class="guide-panel"><div class="below-heading"><span>🏆</span><h3>遊戲小目標</h3></div><p>總需求中的每一件，你都想盡量賣出去。盡量讓商品不要缺貨，結算時看看你能滿足多少需求。</p><div class="guide-metric"><strong id="bestRate">—</strong><span id="bestText">玩完一局，就會記下這個設定的最佳成績</span></div><div class="footnote">成績只存在這台裝置的瀏覽器，不需要帳號。</div></div>
+      </section>
+      <footer class="footer">一間小商店，很多艱難的選擇。<span>Made for playing ✦</span></footer>
+    </main>
+  </div>
+
+  <dialog id="rulesDialog" class="rules-dialog" aria-labelledby="rulesHeading"><form method="dialog"><div class="dialog-top"><h2 id="rulesHeading">📦 遊戲怎麼玩？</h2><button class="icon-close" aria-label="關閉規則">×</button></div><ol><li>每種商品一開始有 <strong>5 件</strong>庫存。</li><li>每天<strong>只能選 1 種商品</strong>補貨，該商品立刻增加 <strong>10 件</strong>。</li><li>當天每種商品都會產生隨機需求。庫存足夠才能售出。</li><li>缺貨的需求就是<strong>少賣</strong>，不會累積到隔天。</li><li>挑戰結束後，以<strong>需求滿足率</strong>評分，並和兩個簡單的電腦補貨策略比較。</li></ol><p>💡 相同的「局號」會產生相同需求，但在決定補貨前不會透露今天的答案。</p><button class="primary-button full-button" value="ok">開始挑戰</button></form></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
