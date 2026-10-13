@@ -2,7 +2,7 @@
 
 一個免費、免登入、能在手機或電腦上玩的庫存補貨小遊戲。
 
-[LINK](https://tim32142000.github.io/inventory-replenishment-pages/)
+[遊戲頁面連結](https://tim32142000.github.io/inventory-replenishment-pages/)
 
 > 每天只能選 **一種商品補貨 10 件**。每天的需求都是隨機的，庫存不夠就會錯過銷售機會。你能撐過挑戰嗎？
 
